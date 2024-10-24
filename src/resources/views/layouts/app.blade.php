@@ -1,25 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atte</title>
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css" />
-    <link rel="stylesheet" href="{{ asset('css/common.css')}}">
-    @yield('css')
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
-
 <body>
-    <div class="app">
-        <header class="header">
-            <h1 class="header__heading">Atte</h1>
-            @yield('link')
-        </header>
-        <div class="content">
-            @yield('content')
-        </div>
-    </div>
-</body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="/">Atte</a>
+            </div>
+            @auth
+            <ul class="nav-links">
+                <li><a href="/">ホーム</a></li>
+                <li><a href="/attendance">日付一覧</a></li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">ログアウト</button>
+                    </form>
+                </li>
+            </ul>
+            @endauth
+        </nav>
+    </header>
 
+    <main>
+        @yield('content')
+    </main>
+
+    <footer>
+        <p>&copy; Atte, inc.</p>
+    </footer>
+</body>
 </html>
