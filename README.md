@@ -7,11 +7,6 @@ Atteは、企業向けの勤怠管理システムです。社員の勤務時間�
 - 開発環境：http://localhost/				
 - phpMyAdmin：http://localhost:8080/				
 				
-## 関連リポジトリ				
-				
-- バックエンド：[リポジトリURL]				
-- フロントエンド：[リポジトリURL]				
-				
 ## 環境構築				
 				
 1. リポジトリをクローン				
@@ -40,8 +35,7 @@ php artisan key:generate
 6. データベースのマイグレーションとシーディング				
 ```bash				
 php artisan migrate --seed				
-```				
-				
+```						
 ## 使用技術(実行環境)				
 				
 - PHP: 7.4.9				
@@ -53,6 +47,10 @@ php artisan migrate --seed
 				
 <img width="645" alt="ER図" src="https://github.com/user-attachments/assets/ad70f65c-da6d-4e10-983e-8a0dc0e9389f">				
 				
+## テストアカウント
+mail ; test@gmail.com
+pass ; test
+
 ## 機能一覧				
 				
 1. 会員登録				
