@@ -48,8 +48,8 @@ php artisan migrate --seed
 <img width="645" alt="ER図" src="https://github.com/user-attachments/assets/ad70f65c-da6d-4e10-983e-8a0dc0e9389f">				
 				
 ## テストアカウント
-mail ; test@gmail.com
-pass ; test
+- mail ; test@gmail.com
+- pass ; test
 
 ## 機能一覧				
 				
