@@ -45,7 +45,8 @@ php artisan migrate --seed
 				
 ## ER図				
 				
-<img width="645" alt="ER図" src="https://github.com/user-attachments/assets/ad70f65c-da6d-4e10-983e-8a0dc0e9389f">				
+<img width="645" alt="ER図" src="![index drawio](https://github.com/user-attachments/assets/fb1c0a34-4467-4114-8b77-b36d5b8ca081)
+">				
 				
 ## テストアカウント
 - mail ; k@gmail.com
