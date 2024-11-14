@@ -74,5 +74,6 @@ php artisan migrate --seed
 - `/` : 打刻ページ				
 - `/register` : 会員登録ページ				
 - `/login` : ログインページ				
-- `/attendance` : 日付別勤怠ページ				
+- `/attendance` : 日付別勤怠ページ
+- `/users` : ユーザー別勤怠ページ			
 				
