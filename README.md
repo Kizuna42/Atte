@@ -30,7 +30,24 @@ composer install
 ```bash				
 cp .env.example .env				
 php artisan key:generate				
-```				
+```
+```
+// 前略
+
+DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
++ DB_HOST=mysql
+DB_PORT=3306
+- DB_DATABASE=laravel
+- DB_USERNAME=root
+- DB_PASSWORD=
++ DB_DATABASE=laravel_db
++ DB_USERNAME=laravel_user
++ DB_PASSWORD=laravel_pass
+
+// 後略
+
+```
 ※環境変数を必要に応じて変更してください
 
 6. データベースのマイグレーションとシーディング				
