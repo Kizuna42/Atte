@@ -31,7 +31,8 @@ composer install
 cp .env.example .env				
 php artisan key:generate				
 ```				
-※環境変数を必要に応じて変更してください				
+※環境変数を必要に応じて変更してください
+
 6. データベースのマイグレーションとシーディング				
 ```bash				
 php artisan migrate --seed				
