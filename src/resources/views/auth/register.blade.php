@@ -18,7 +18,10 @@
             <input type="password" name="password_confirmation" placeholder="確認用パスワード" required>
         </div>
         <button type="submit" class="auth-button">会員登録</button>
-        <p class="auth-link">アカウントをお持ちの方はこちらから<a href="{{ route('login') }}">ログイン</a></p>
+        <div class="login-section">
+            <p class="auth-link">アカウントをお持ちの方はこちらから</p>
+            <a href="{{ route('login') }}" style = "color: blue;">ログイン</a>
+        </div>
     </form>
 </div>
 @endsection

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +13,8 @@ class Attendance extends Model
         'user_id',
         'work_date',
         'start_time',
-        'end_time'
+        'end_time',
+        'break_time'
     ];
 
     protected $dates = [
@@ -28,11 +28,6 @@ class Attendance extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function breaks()
-    {
-        return $this->hasMany(Breaktime::class);
-    }
-
     public function breaktimes()
     {
         return $this->hasMany(Breaktime::class);
@@ -40,14 +35,18 @@ class Attendance extends Model
 
     public function getTotalBreakTimeAttribute()
     {
-        $total = 0;
-        // $this->breaks を $this->breaktimes に修正
+        $totalSeconds = 0;
         foreach ($this->breaktimes as $break) {
             if ($break->end_time) {
-                $total += $break->end_time->diffInMinutes($break->start_time);
+                $totalSeconds += $break->end_time->diffInSeconds($break->start_time);
             }
         }
-        return sprintf('%02d:%02d', floor($total / 60), $total % 60);
+
+        $hours = floor($totalSeconds / 3600);
+        $minutes = floor(($totalSeconds % 3600) / 60);
+        $seconds = $totalSeconds % 60;
+
+        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
     }
 
     public function getWorkTimeAttribute()
@@ -56,17 +55,20 @@ class Attendance extends Model
             return '-';
         }
 
-        $totalMinutes = $this->end_time->diffInMinutes($this->start_time);
-        $breakMinutes = 0;
+        $totalSeconds = $this->end_time->diffInSeconds($this->start_time);
+        $breakSeconds = 0;
 
-        // $this->breaks を $this->breaktimes に修正
         foreach ($this->breaktimes as $break) {
             if ($break->end_time) {
-                $breakMinutes += $break->end_time->diffInMinutes($break->start_time);
+                $breakSeconds += $break->end_time->diffInSeconds($break->start_time);
             }
         }
 
-        $workMinutes = $totalMinutes - $breakMinutes;
-        return sprintf('%02d:%02d', floor($workMinutes / 60), $workMinutes % 60);
+        $workSeconds = $totalSeconds - $breakSeconds;
+        $hours = floor($workSeconds / 3600);
+        $minutes = floor(($workSeconds % 3600) / 60);
+        $seconds = $workSeconds % 60;
+
+        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
     }
 }

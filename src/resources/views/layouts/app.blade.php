@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atte</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sanitize.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -17,6 +17,7 @@
             <ul class="nav-links">
                 <li><a href="/">ホーム</a></li>
                 <li><a href="/attendance">日付一覧</a></li>
+                <li><a href="/users">ユーザーページ</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf

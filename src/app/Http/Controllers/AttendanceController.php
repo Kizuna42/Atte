@@ -12,10 +12,10 @@ class AttendanceController extends Controller
     {
         $date = $request->get('date') ? Carbon::parse($request->get('date')) : Carbon::today();
 
-        $attendances = Attendance::with(['user', 'breaktimes']) // breaks() -> breaktimes()
+        $attendances = Attendance::with(['user', 'breaktimes'])
             ->whereDate('work_date', $date)
             ->orderBy('start_time')
-            ->paginate(10);
+            ->paginate(5);
 
         return view('attendance.index', [
             'attendances' => $attendances,
@@ -32,6 +32,7 @@ class AttendanceController extends Controller
 
         $exists = Attendance::where('user_id', $user->id)
             ->whereDate('work_date', $today)
+            ->whereNull('end_time')
             ->exists();
 
         if ($exists) {
@@ -51,6 +52,7 @@ class AttendanceController extends Controller
     {
         $user = auth()->user();
         $today = Carbon::today();
+        $now = Carbon::now();
 
         $attendance = Attendance::where('user_id', $user->id)
             ->whereDate('work_date', $today)
@@ -61,7 +63,7 @@ class AttendanceController extends Controller
             return redirect()->back()->with('error', '開始されている勤務がありません。');
         }
 
-        $hasOngoingBreak = $attendance->breaktimes() // breaks() -> breaktimes()
+        $hasOngoingBreak = $attendance->breaktimes()
             ->whereNull('end_time')
             ->exists();
 
@@ -69,10 +71,21 @@ class AttendanceController extends Controller
             return redirect()->back()->with('error', '休憩中は勤務を終了できません。');
         }
 
-        $attendance->update([
-            'end_time' => Carbon::now()
-        ]);
-
-        return redirect()->back()->with('success', '勤務を終了しました。');
+        if ($now->greaterThan($today->endOfDay())) {
+            $attendance->update([
+                'end_time' => $today->endOfDay()
+            ]);
+            Attendance::create([
+                'user_id' => $user->id,
+                'work_date' => $today->addDay(),
+                'start_time' => $now,
+            ]);
+            return redirect()->back()->with('success', '前日の勤務を終了し、翌日の勤務を開始しました。');
+        } else {
+            $attendance->update([
+                'end_time' => $now
+            ]);
+            return redirect()->back()->with('success', '勤務を終了しました。');
+        }
     }
 }

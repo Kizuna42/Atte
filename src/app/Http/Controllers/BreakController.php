@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Breaktime; // Breaktime モデルを使用
+use App\Models\Breaktime;
 use App\Models\Attendance;
 use Carbon\Carbon;
 
@@ -22,7 +22,7 @@ class BreakController extends Controller
             return redirect()->back()->with('error', '勤務が開始されていません。');
         }
 
-        $hasOngoingBreak = $attendance->breaks()
+        $hasOngoingBreak = $attendance->breaktimes()
             ->whereNull('end_time')
             ->exists();
 
@@ -30,7 +30,6 @@ class BreakController extends Controller
             return redirect()->back()->with('error', '既に休憩中です。');
         }
 
-        // Breaktime モデルを使用して休憩を開始
         Breaktime::create([
             'attendance_id' => $attendance->id,
             'start_time' => Carbon::now(),
@@ -44,7 +43,6 @@ class BreakController extends Controller
         $user = auth()->user();
         $today = Carbon::today();
 
-        // Breaktime モデルを使用して休憩を終了
         $break = Breaktime::whereHas('attendance', function($query) use ($user, $today) {
             $query->where('user_id', $user->id)
                 ->whereDate('work_date', $today);

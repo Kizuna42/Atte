@@ -12,7 +12,10 @@
             <input type="password" name="password" placeholder="パスワード" required>
         </div>
         <button type="submit" class="auth-button">ログイン</button>
-        <p class="auth-link">アカウントをお持ちでない方はこちらから<a href="{{ route('register') }}">会員登録</a></p>
+        <div class="login-section">
+            <p class="auth-link">アカウントをお持ちでない方はこちらから</p>
+            <a href="{{ route('register') }}" style = "color: blue;">会員登録</a>
+        </div>
     </form>
 </div>
 @endsection
