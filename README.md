@@ -35,8 +35,9 @@ cp .env.example .env
 ```bash				
 php artisan key:generate				
 ```
+※環境変数を必要に応じて変更してください
 ```
-// 前略
+//前略
 
 DB_CONNECTION=mysql
 - DB_HOST=127.0.0.1
@@ -50,9 +51,8 @@ DB_PORT=3306
 + DB_PASSWORD=laravel_pass
 
 // 後略
-
 ```
-※環境変数を必要に応じて変更してください
+
 
 6. データベースのマイグレーションとシーディング				
 ```bash				
