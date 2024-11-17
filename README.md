@@ -30,7 +30,9 @@ composer install
 ```				
 5. 環境ファイルを設定				
 ```bash				
-cp .env.example .env				
+cp .env.example .env
+```
+```bash				
 php artisan key:generate				
 ```
 ```
